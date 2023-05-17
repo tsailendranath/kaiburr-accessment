@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anji
+  labels:
+    app: anji
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anji
+  template:
+    metadata:
+      labels:
+        app: anji
+    spec:
+      containers:
+      - name: anji
+        image: "tsailendranath/hackathon:latest"
+        ports:
+        - containerPort: 80
+        envFrom:
+          - name: MONGODB_URI
+            value: mongodb://13.127.98.182:27017/test
+          - configMapRef:
+              name: db-ip
+          - secretRef:
